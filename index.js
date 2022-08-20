@@ -22,8 +22,8 @@ var busObject = {
 }
 
 function displayServices(service){
-    console.log("helloe")
     const mainSection = document.getElementById('card-section');
+    const stringifiedObj = JSON.stringify(service);
 
     const div = document.createElement('div');
     div.classList.add('card', 'mb-3');
@@ -44,11 +44,12 @@ function displayServices(service){
             <h5>Fare per kilo:${service.fareperkilo}</5>
             <h5>Capacity: ${service.capacity}</h5>
           </div>
-          <button class="btn btn-info">Book now</button>
+          <button type="button" class="btn btn-primary" onclick="handleBooking('${stringifiedObj}')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Buy now
+</button>
         </div>
       </div>
     </div>
-  
  `
 
     mainSection.appendChild(div);
@@ -58,3 +59,19 @@ function displayServices(service){
 displayServices(busObject);
 displayServices(bikeObject);
 displayServices(carObject);
+
+//handle booking info 
+function handleBooking(obj){
+    console.log('hello bro')
+    const modalBody = document.getElementById('modal-body');
+
+    modalBody.innerHTML=`
+    <div class="card" style="width: 18rem;">
+  <img src="${obj.imageUrl}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Vehicle Mode :${obj.vehicle}</h5>
+    <p class="card-text">${obj.description}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>`
+}
